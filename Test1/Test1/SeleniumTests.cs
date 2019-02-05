@@ -11,17 +11,24 @@ namespace SeleniumTests
     public class Test1
     {
         private IWebDriver driver;
+        private string baseURL;
 
         [SetUp]
         public void SetupTest()
         {
             driver = new ChromeDriver();
+            baseURL = "http://localhost/litecart/admin/";
         }
 
         [Test]
-        public void StartBrowsertest()
+        public void LoginTest()
         {
-            driver.Url = "https://yandex.ru/";
+            driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.Name("username")).Clear();
+            driver.FindElement(By.Name("username")).SendKeys("admin");
+            driver.FindElement(By.Name("password")).Clear();
+            driver.FindElement(By.Name("password")).SendKeys("admin");
+            driver.FindElement(By.Name("login")).Click();
         }
 
         [TearDown]
