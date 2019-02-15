@@ -34,38 +34,13 @@ namespace SeleniumTests
         {
             driver.Navigate().GoToUrl(baseURL);
 
-            int stickerExist1 = driver.FindElements(By.CssSelector("#box-most-popular [title='Blue Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist1);
+            IList<IWebElement> products = driver.FindElements(By.CssSelector(".product.column.shadow"));
 
-            int stickerExist2 = driver.FindElements(By.CssSelector("#box-most-popular [title='Purple Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist2);
-
-            int stickerExist3 = driver.FindElements(By.CssSelector("#box-most-popular [title='Yellow Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist3);
-
-            int stickerExist4 = driver.FindElements(By.CssSelector("#box-most-popular [title='Green Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist4);
-
-            int stickerExist5 = driver.FindElements(By.CssSelector("#box-most-popular [title='Red Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist5);
-
-            int stickerExist6 = driver.FindElements(By.CssSelector("#box-campaigns [title='Yellow Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist6);
-
-            int stickerExist7 = driver.FindElements(By.CssSelector("#box-latest-products [title='Blue Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist7);
-
-            int stickerExist8 = driver.FindElements(By.CssSelector("#box-latest-products [title='Purple Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist8);
-
-            int stickerExist9 = driver.FindElements(By.CssSelector("#box-latest-products [title='Yellow Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist9);
-
-            int stickerExist10 = driver.FindElements(By.CssSelector("#box-latest-products [title='Green Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist10);
-
-            int stickerExist11 = driver.FindElements(By.CssSelector("#box-latest-products [title='Red Duck'] .sticker")).Count;
-            Assert.AreEqual(1, stickerExist11);
+            foreach (IWebElement product in products)
+            {
+                int stickerCount = product.FindElements(By.CssSelector(".sticker")).Count;
+                Assert.AreEqual(1, stickerCount, "error " + product.FindElement(By.CssSelector(".name")).Text);
+            }
         }
 
         [Test]
