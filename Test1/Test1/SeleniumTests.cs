@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -75,6 +76,26 @@ namespace SeleniumTests
                 }
             }
 
+        }
+
+        [Test]
+        public void CheckSortContriesTest()
+        {
+            driver.Navigate().GoToUrl(baseURL + "/admin/?app=countries&doc=countries");
+            Login();
+
+            IList<IWebElement> listCountries = driver.FindElements(By.CssSelector("tr.row td a:not([title=Edit])"));
+            List<String> ListCountriesNames = new List<String>();
+
+            foreach (var country in listCountries)
+            {
+                var countryName = country.GetAttribute("textContent");
+                ListCountriesNames.Add(countryName);
+            }
+
+            List<String> SortListCountriesNames = ListCountriesNames;
+            SortListCountriesNames.Sort();
+            Assert.AreEqual(ListCountriesNames, SortListCountriesNames);
         }
 
         public void Login()
