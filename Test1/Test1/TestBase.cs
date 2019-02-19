@@ -4,6 +4,8 @@ using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumWebDriver
@@ -19,6 +21,8 @@ namespace SeleniumWebDriver
         public void SetupTest()
         {
             driver = new ChromeDriver();
+            //driver = new FirefoxDriver();
+            //driver = new InternetExplorerDriver();
             baseURL = "http://localhost/litecart/";
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
         }
