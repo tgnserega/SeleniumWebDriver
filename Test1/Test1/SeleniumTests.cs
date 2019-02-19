@@ -139,6 +139,29 @@ namespace SeleniumTests
             }
         }
 
+        [Test]
+        public void CheckSortGeoZoneContriesTest()
+        {
+            driver.Navigate().GoToUrl("http://localhost/litecart/admin/?app=geo_zones&doc=edit_geo_zone&page=1&geo_zone_id=1");
+            Login();
+
+            IList<IWebElement> listCountries = driver.FindElements(By.CssSelector("#table-zones [name *='zone_code'] option"));
+            List<String> ListCountriesNames = new List<String>();
+
+            foreach (var country in listCountries)
+            {
+                var a = country.GetAttribute("selected");
+                if (a == "true")
+                {
+                    ListCountriesNames.Add(country.GetAttribute("text"));
+                }
+            }
+
+            List<String> SortListCountriesNames = ListCountriesNames;
+            SortListCountriesNames.Sort();
+            Assert.AreEqual(ListCountriesNames, SortListCountriesNames);
+        }
+
         public void Login()
         {
             driver.FindElement(By.Name("username")).Clear();
