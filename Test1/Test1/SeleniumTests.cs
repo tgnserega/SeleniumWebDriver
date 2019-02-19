@@ -98,6 +98,47 @@ namespace SeleniumTests
             Assert.AreEqual(ListCountriesNames, SortListCountriesNames);
         }
 
+        [Test]
+        public void CheckSortZoneContriesTest()
+        {
+            driver.Navigate().GoToUrl(baseURL + "/admin/?app=countries&doc=countries");
+            Login();
+
+            IList<IWebElement> listCountries = driver.FindElements(By.CssSelector(".dataTable tr.row"));
+            List<String> ListNotNull = new List<String>();
+
+            foreach (var country in listCountries)
+            {
+                var x = country.FindElement(By.CssSelector("td:nth-child(6)"));
+
+                if (x.GetAttribute("textContent") != "0")
+                {
+                    var y = country.FindElement(By.CssSelector("td:nth-child(5) > a"));
+                    var countryURL = y.GetAttribute("href");
+                    ListNotNull.Add(countryURL);
+                }
+            }
+
+
+            foreach (var zoneURL in ListNotNull)
+            {
+                driver.Navigate().GoToUrl(zoneURL);
+
+                IList<IWebElement> listZoneCountries = driver.FindElements(By.CssSelector("#table-zones  td:nth-child(3)"));
+                List<String> ListZoneCountriesNames = new List<String>();
+
+                foreach (var z_country in listZoneCountries)
+                {
+                    var countryName = z_country.GetAttribute("textContent");
+                    ListZoneCountriesNames.Add(countryName);
+                }
+
+                List<String> SortListZoneCountriesNames = ListZoneCountriesNames;
+                SortListZoneCountriesNames.Sort();
+                Assert.AreEqual(ListZoneCountriesNames, SortListZoneCountriesNames);
+            }
+        }
+
         public void Login()
         {
             driver.FindElement(By.Name("username")).Clear();
