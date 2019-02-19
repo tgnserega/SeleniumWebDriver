@@ -6,30 +6,12 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumTests
+namespace SeleniumWebDriver
 
 {
     [TestFixture]
-    public class Test1
-    {
-        private IWebDriver driver;
-        private string baseURL;
-
-        [SetUp]
-        public void SetupTest()
-        {
-            driver = new ChromeDriver();
-            baseURL = "http://localhost/litecart/";
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-        }
-
-        [Test]
-        public void LoginTest()
-        {
-            driver.Navigate().GoToUrl(baseURL + "admin/");
-            Login();
-        }
-
+    public class Task9 : TestBase
+    {      
         [Test]
         public void CheckStickersTest()
         {
@@ -71,11 +53,9 @@ namespace SeleniumTests
                         elementSubMenu[k].Click();
 
                         Assert.True(IsElementPresent(driver, By.CssSelector("h1")));              
-
                     }
                 }
             }
-
         }
 
         [Test]
@@ -160,40 +140,6 @@ namespace SeleniumTests
             List<String> SortListCountriesNames = ListCountriesNames;
             SortListCountriesNames.Sort();
             Assert.AreEqual(ListCountriesNames, SortListCountriesNames);
-        }
-
-        public void Login()
-        {
-            driver.FindElement(By.Name("username")).Clear();
-            driver.FindElement(By.Name("username")).SendKeys("admin");
-            driver.FindElement(By.Name("password")).Clear();
-            driver.FindElement(By.Name("password")).SendKeys("admin");
-            driver.FindElement(By.Name("login")).Click();
-        }
-
-        public bool IsElementPresent(IWebDriver driver, By locator)
-        {
-            try
-            {
-                driver.FindElement(locator);
-                return true;
-            }
-            catch (NoSuchElementException ex)
-            {
-                Console.WriteLine(ex);
-                return false;
-            }
-        }
-
-        //bool AreElementsPresent(IWebDriver driver, By locator)
-        //{
-        //    return driver.FindElements(locator).Count > 0;
-        //}
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            driver.Quit();
         }
     }
 }
