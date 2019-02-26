@@ -40,8 +40,8 @@ namespace SeleniumWebDriver
             Assert.AreEqual(compareHeight, true);
             Assert.AreEqual(compareWidth, true);
 
-            var valueRegularPriceMainPage = driver.FindElement(By.CssSelector("div#box-campaigns li:first-child s")).Text;
-            var valueCampaignPriceMainPage = driver.FindElement(By.CssSelector("div#box-campaigns li:first-child strong")).Text;
+            var valueRegularPriceMainPage = driver.FindElement(By.CssSelector("#box-campaigns li:first-child s")).Text;
+            var valueCampaignPriceMainPage = driver.FindElement(By.CssSelector("#box-campaigns li:first-child strong")).Text;
 
             var colorRegularPriceMainPage = regularPriceMainPage.GetCssValue("color");
             var splitColorRegularMainPage = colorRegularPriceMainPage.Replace("rgba", "").Replace("rgb", "").Replace("(", "").Replace(")", "").Replace(" ", "").Split(',');            
