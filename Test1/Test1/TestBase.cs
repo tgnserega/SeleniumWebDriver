@@ -16,6 +16,7 @@ namespace SeleniumWebDriver
     {
         public IWebDriver driver;
         public string baseURL;
+        public WebDriverWait wait;
 
         [SetUp]
         public void SetupTest()
@@ -24,7 +25,8 @@ namespace SeleniumWebDriver
             //driver = new FirefoxDriver();
             //driver = new InternetExplorerDriver();
             baseURL = "http://localhost/litecart/";
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));   
         }
 
         public void Login()
