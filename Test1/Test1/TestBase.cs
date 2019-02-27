@@ -29,6 +29,20 @@ namespace SeleniumWebDriver
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));   
         }
 
+        public Func<IWebDriver, string> anyWindowOtherThan(ICollection<string> oldWindows)
+        {
+            return p =>
+            {
+                List<string> handles = new List<string>(p.WindowHandles);
+
+                foreach (string q in oldWindows)
+
+                    handles.Remove(q);
+
+                return handles.Count > 0 ? handles[0] : null;
+            };
+        }
+
         public void Login()
         {
             driver.FindElement(By.Name("username")).Clear();
